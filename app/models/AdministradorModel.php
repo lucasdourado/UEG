@@ -23,4 +23,8 @@ class AdministradorModel {
 		}
 	}
 
+	public function getStatusCadastro() {
+		
+	}
+
 }

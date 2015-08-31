@@ -48,28 +48,16 @@ $app->get(
 );
 
 $app->get(
-    '/testeAdm',
+    '/cadastraUEVTeste',
     function () {
-        $adm = new \app\controllers\Administrador();
-        $adm->fechaCadastro();
-        //$adm->abreCadastro();
-    }
-);
-
-$app->get(
-    '/testAddCandidato',
-    function () {
-        $servidor = 'http://ueg.com.br/post';
+        $servidor = 'http://ueg.com.br/cadastraUEV';
 
         // Parametros da requisição
         $content = json_encode(array(
-            'numero' => 1,
-            'nome' => 'TesteCandidato3',
-            'apelido' => 'apelidoCandidato3',
-            'foto' => 'fotoCandidato3',
-            'id_cargo' => 1
+            'nome' => 'UEV 1',
+            'url_resposta' => 'uev1.com.br/dados'
         ));
-
+        
         $context = stream_context_create(array(
             'http' => array(
                 'method' => 'POST',
@@ -83,23 +71,17 @@ $app->get(
         // Realize comunicação com o servidor
         $contents = file_get_contents($servidor, null, $context);            
         
-        echo "OK!";
         echo $contents;
     }
 );
 
-// POST route
+$app->get(
+    '/testeAdm', '\app\controllers\Administrador:fechaCadastro'
+);
+
+// Recebe requisição de cadastro da UEV
 $app->post(
-    '/post',
-    function () {
-        $request = \Slim\Slim::getInstance()->request();
-        $dadosCandidato = json_decode($request->getBody());
-
-        $objCandidato = new app\controllers\Candidato();
-        $addCandidato = $objCandidato->insereCandidato($dadosCandidato);
-
-        echo json_encode($addCandidato);
-    }   
+    '/cadastraUEV', '\app\controllers\Uev:SolicitaCadastroUEV'
 );
 
 // PUT route
