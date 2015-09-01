@@ -56,4 +56,8 @@ $app->get(
     '/listaCandidatos', '\app\controllers\Candidato:listaCandidatos'
 );
 
+$app->get(
+    '/listaEleitores', '\app\controllers\Eleitor:listaEleitores'
+);
+
 $app->run();
