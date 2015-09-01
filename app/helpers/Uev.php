@@ -9,14 +9,13 @@ class Uev {
 	public function __construct() {
 
 		$this->msgsErro = array(
-			'formato_json' => 'Dados informados incorretos.<br>Formato do JSON:<br>{"nome": "Nome da UEV", "url_resposta": "nomedauev.com.br/recebeDados"}',
-			'nome_uev' => 'Informar o nome da UEV.<br>',
-			'url_resposta_uev' => 'Informar a URL para que os dados sejam enviados da UEV.<br>',
-			'num_maximo' => 'O número máximo de cadastro de 10 UEVs foi atingido. Impossível realizar o cadastro.<br>'
+			'formato_json' => 'Os dados informados estão incorretos. Formato do JSON: {"token": "abc123"}',
+			'enviar_token' => 'Informar o token de acesso.',
+			'sem_acesso' => 'Token informado não possui acesso.'
 		);
 	}
 
-	public function getMsgsErro($chave) {
+	public function getMsgsErro($chave = null) {
 		if($chave)
 			return $this->msgsErro[$chave];
 		return $this->msgsErro;

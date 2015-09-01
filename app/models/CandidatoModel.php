@@ -26,4 +26,32 @@ class CandidatoModel {
 		}
 	}
 
+	public function getCandidatos() {
+		try {
+			$sql = 'SELECT * FROM candidato';
+			$query = $this->db->prepare($sql);
+			$query->execute();
+			$resultado = $query->fetchAll(\PDO::FETCH_ASSOC);
+
+			return $resultado;
+			
+		} catch(PDOException $e) {
+			echo 'Erro: ' . $e->getMessage();
+		}
+	}
+
+	public function getCargos() {
+		try {
+			$sql = 'SELECT * FROM cargo';
+			$query = $this->db->prepare($sql);
+			$query->execute();
+			$resultado = $query->fetchAll(\PDO::FETCH_ASSOC);
+
+			return $resultado;
+			
+		} catch(PDOException $e) {
+			echo 'Erro: ' . $e->getMessage();
+		}
+	}
+
 }

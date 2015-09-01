@@ -1,7 +1,9 @@
 <?php
 
 namespace app\controllers;
+
 use app\models\UevModel;
+use Slim\Slim as Slim;
 
 class Uev {
 
@@ -13,31 +15,32 @@ class Uev {
 		$this->uevHelper = new \app\helpers\Uev();
 	}
 
-	public function SolicitaCadastroUEV() {
-		$request = \Slim\Slim::getInstance()->request();
+	public function solicitaDados() {
+		$request = Slim::getInstance()->request();
 		$dadosUEV = json_decode($request->getBody());
-		$msgRetorno = '';
+		$msgErro = '';
+		$dados = array();
 
-		/* Validação - Inicio */
-		if(!isset($dadosUEV->nome) || !isset($dadosUEV->url_resposta))
-			$msgRetorno .= $uevHelper->getMsgsErro("formato_json");
+		// Verifica se foi enviado os dados necessários (token)
+		if(!isset($dadosUEV->token))
+			$msgErro = $this->uevHelper->getMsgsErro('formato_json');
 
-		if(isset($dadosUEV->nome) && $dadosUEV->nome == '')
-			$msgRetorno .= $uevHelper->getMsgsErro("nome_uev");
+		// Verifica se o token enviado não está vazio
+		if(($msgErro == '') && (isset($dadosUEV->token)) && ($dadosUEV->token == ''))
+			$msgErro = $this->uevHelper->getMsgsErro('enviar_token');
 
-		if(isset($dadosUEV->nome) && $dadosUEV->url_resposta == '')
-			$msgRetorno .= $uevHelper->getMsgsErro("url_resposta_uev");
+		// Verifica se UEV possui acesso aos dados
+		if($msgErro == '' && !$this->uevModel->verificaAcesso($dadosUEV->token))
+			$msgErro = $this->uevHelper->getMsgsErro("sem_acesso");
 
-		if($this->uevModel->getNumUEVCadastradas() >= 10)
-			$msgRetorno .= $uevHelper->getMsgsErro("num_maximo");
-		/* Validação - Fim */ 
+		if($msgErro == ''){
+			$idUev = $this->uevModel->verificaAcesso($dadosUEV->token, true);
+			$dados = \app\controllers\Administrador::getDadosCarga($idUev);
+		}
 
-		// Se algum problema na validação, retorna a msg de erro
-		if($msgRetorno != '')
-			echo $msgRetorno;
+		$dados['erro'] = $msgErro;
 
-		// Se validação ok, cadastra a UEV
-		print_r($this->uevModel->cadastraUEV($dadosUEV));
+		echo json_encode($dados);
 	}
 
 }

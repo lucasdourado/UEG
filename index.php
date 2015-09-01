@@ -16,14 +16,13 @@ $app->get(
 );
 
 $app->get(
-    '/cadastraUEVTeste',
+    '/solicitaDadosTeste',
     function () {
-        $servidor = 'http://ueg.com.br/cadastraUEV';
+        $servidor = 'http://ueg.com.br/solicitaDados';
 
         // Parametros da requisição
         $content = json_encode(array(
-            'nome' => 'UEV 1',
-            'url_resposta' => 'uev1.com.br/dados'
+            'token' => 'uev1'
         ));
         
         $context = stream_context_create(array(
@@ -43,10 +42,6 @@ $app->get(
     }
 );
 
-$app->get(
-    '/testeAdm', '\app\controllers\Administrador:fechaCadastro'
-);
-
 // Recebe requisição de cadastro da UEV
 $app->post(
     '/cadastraUEV', '\app\controllers\Uev:SolicitaCadastroUEV'
@@ -58,6 +53,10 @@ $app->get(
 
 $app->get(
     '/listaEleitores', '\app\controllers\Eleitor:listaEleitores'
+);
+
+$app->post(
+    '/solicitaDados', '\app\controllers\Uev:solicitaDados'
 );
 
 $app->run();

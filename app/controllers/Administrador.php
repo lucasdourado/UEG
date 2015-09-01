@@ -1,21 +1,21 @@
 <?php
 namespace app\controllers;
 
-use app\models\AdministradorModel;
+use app\models\CandidatoModel;
+use app\models\EleitorModel;
 
 class Administrador {
 
-	private $admModel;
+	public static function getDadosCarga($idUev) {
+		$dados = array();
+		$candidatoModel = new CandidatoModel();
+		$eleitorModel = new EleitorModel();
 
-	public function __construct() {
-		$this->admModel = new AdministradorModel();
+		$dados['cargo'] = $candidatoModel->getCargos();
+		$dados['candidatos'] = $candidatoModel->getCandidatos();
+		$dados['eleitores'] = $eleitorModel->getEleitores($idUev);
+
+		return $dados;
 	}
 
-	public function abreCadastro() {
-		$this->admModel->abreFechaCadastro(1);
-	}
-
-	public function fechaCadastro() {
-		$this->admModel->abreFechaCadastro(0);
-	}
 }

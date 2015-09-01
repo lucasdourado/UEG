@@ -12,30 +12,17 @@ class UevModel {
 		$this->db = Conexao::conectar();
 	}
 
-	public function getNumUEVCadastradas() {
+	public function verificaAcesso($token, $retornaID = false) {
 		try {
-			$sql = 'SELECT COUNT(*) AS QTDE FROM uev';
+			$sql = 'SELECT id FROM uev WHERE token_acesso = :token';
 			$query = $this->db->prepare($sql);
+			$query->bindParam("token", $token, \PDO::PARAM_STR);
 			$query->execute();
-			$resultado = $query->fetchAll(\PDO::FETCH_OBJ);
+			$resultado = $query->fetchAll(\PDO::FETCH_ASSOC);
 
-			return $resultado[0]->QTDE;
-
-		} catch(PDOException $e) {
-			echo 'Erro: ' . $e->getMessage();
-		}
-	}
-
-	public function cadastraUEV($dados) {
-		try {
-			$sql = 'INSERT INTO uev (nome, url_resposta) values (:nome, :url_resposta)';
-			$query = $this->db->prepare($sql);
-			$query->bindParam("nome", $dados->nome, \PDO::PARAM_STR);
-			$query->bindParam("url_resposta", $dados->url_resposta, \PDO::PARAM_STR);
-			$query->execute();
-			$dados->id = $this->db->lastInsertId();
-			
-			return $dados;
+			if(!$retornaID)
+				return (empty($resultado)) ? false : true;
+			return $resultado[0]['id'];
 
 		} catch(PDOException $e) {
 			echo 'Erro: ' . $e->getMessage();
