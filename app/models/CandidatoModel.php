@@ -15,9 +15,9 @@ class CandidatoModel {
 	public function listaCandidatos() {
 		try {
 			$sql = 'SELECT c.numero, c.nome, c.apelido, c.foto, ca.nome as nome_cargo FROM candidato c INNER JOIN cargo ca ON ca.id = c.id_cargo';
-			$candidatos = $this->db->prepare($sql);
-			$candidatos->execute();
-			$resultado = $candidatos->fetchAll(\PDO::FETCH_OBJ);
+			$query = $this->db->prepare($sql);
+			$query->execute();
+			$resultado = $query->fetchAll(\PDO::FETCH_OBJ);
 
 			return $resultado;
 			

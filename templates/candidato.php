@@ -24,7 +24,7 @@
       <p class="text-right"><input type="button" class="btn btn-default" value="Voltar" onclick="window.location='/'"></p>
 
       <?php
-        if(!isset($candidatos) && !empty($candidatos)) { ?>
+        if(isset($candidatos) && !empty($candidatos)) { ?>
 
           <table class="table table-bordered">
             <tr>
