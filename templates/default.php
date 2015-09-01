@@ -19,7 +19,12 @@
   </head>
   <body>
 
-    <?php var_dump($candidatos); ?>
+    <div class="container">
+      <h1>UEg <small>Gerenciamento</small></h1>
+      <input type="button" class="btn btn-primary btn-lg btn-block" value="Lista de Candidatos" onclick="window.location='/listaCandidatos'">
+      <input type="button" class="btn btn-primary btn-lg btn-block" value="Lista de Eleitores" onclick="window.location='/listaEleitores'">
+      <input type="button" class="btn btn-primary btn-lg btn-block" value="Apuração dos Votos" onclick="window.location='/apuracao'">
+    </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="templates/bootstrap/js/jquery.v1.11.3.js"></script>

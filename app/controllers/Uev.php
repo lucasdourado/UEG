@@ -15,7 +15,7 @@ class Uev {
 
 	public function SolicitaCadastroUEV() {
 		$request = \Slim\Slim::getInstance()->request();
-        $dadosUEV = json_decode($request->getBody());
+		$dadosUEV = json_decode($request->getBody());
 		$msgRetorno = '';
 
 		/* Validação - Inicio */

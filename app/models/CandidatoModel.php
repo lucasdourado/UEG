@@ -12,9 +12,9 @@ class CandidatoModel {
 		$this->db = Conexao::conectar();
 	}
 
-	public function listaTodosCandidatos() {
+	public function listaCandidatos() {
 		try {
-			$sql = 'SELECT * FROM candidato';
+			$sql = 'SELECT c.numero, c.nome, c.apelido, c.foto, ca.nome as nome_cargo FROM candidato c INNER JOIN cargo ca ON ca.id = c.id_cargo';
 			$candidatos = $this->db->prepare($sql);
 			$candidatos->execute();
 			$resultado = $candidatos->fetchAll(\PDO::FETCH_OBJ);
@@ -26,21 +26,4 @@ class CandidatoModel {
 		}
 	}
 
-	public function insereCandidato($dados) {
-		try {
-			$sql = 'INSERT INTO candidato (numero, nome, apelido, foto, id_cargo) values (:numero, :nome, :apelido, :foto, :id_cargo)';
-			$query = $this->db->prepare($sql);
-			$query->bindParam("numero", $dados->numero, \PDO::PARAM_INT);
-			$query->bindParam("nome", $dados->nome, \PDO::PARAM_STR);
-			$query->bindParam("apelido", $dados->apelido, \PDO::PARAM_STR);
-			$query->bindParam("foto", $dados->foto, \PDO::PARAM_STR);
-			$query->bindParam("id_cargo", $dados->id_cargo, \PDO::PARAM_INT);
-			$query->execute();
-
-			return $dados;
-
-		} catch(PDOException $e) {
-			echo 'Erro: ' . $e->getMessage();
-		}
-	}
 }

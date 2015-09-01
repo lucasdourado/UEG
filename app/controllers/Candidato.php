@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\CandidatoModel;
+use Slim\Slim as Slim;
 
 class Candidato {
 	
@@ -13,11 +14,10 @@ class Candidato {
 	}
 
 	public function listaCandidatos() {
-		return $this->candidatoModel->listaTodosCandidatos();
-	}
-
-	public function insereCandidato($dadosCandidato) {
-		return $this->candidatoModel->insereCandidato($dadosCandidato);
+		$app = Slim::getInstance();
+		$candidatos = $this->candidatoModel->listaCandidatos();
+		$data = array("candidatos" => $candidatos);
+		$app->render('candidato.php', $data);
 	}
 
 }
