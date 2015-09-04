@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers;
 
+use app\models\AdministradorModel;
 use app\models\CandidatoModel;
 use app\models\EleitorModel;
 
@@ -14,6 +15,7 @@ class Administrador {
 	public function __construct() {
 		$this->candidatoModel = new CandidatoModel();
 		$this->eleitorModel = new EleitorModel();
+		$this->admModel = new AdministradorModel();
 	}
 
 	public function getTempoExpiracao() {
@@ -32,9 +34,8 @@ class Administrador {
 	}
 
 	public function registraVotosUev($dados) {
-		//$this->candidatoModel->cadastraVotos($dados->votacao);
-		//$this->eleitorModel->marcaEleitoresVotaram($dados->eleitores);
-		//$this->uevModel->marcaUevEnviouVotacao($dados->id);
+		$registra = $this->admModel->registraVotosUev($dados);
+		return $registra;
 	}
 
 }

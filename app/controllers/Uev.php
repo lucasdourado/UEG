@@ -69,8 +69,11 @@ class Uev {
 		// Se estiver tudo OK, cadastra os votos e os eleitores que votaram
 		if($msgErro == '') {
 			$idUev = $this->uevModel->verificaAcesso($dadosUEV->token, true);
-			$dadosUEV->id = $idUev;
-			$dados = $this->admModel->registraVotosUev($dadosUEV);
+			$dadosUEV->idUev = $idUev;
+			$registra = $this->admModel->registraVotosUev($dadosUEV);
+			$dados['votacao'] = (!$registra) ? 
+								'Erro ao cadastrar os votos'
+								: 'Votos cadastrados com sucesso.';
 		}
 
 		$dados['erro'] = $msgErro;
