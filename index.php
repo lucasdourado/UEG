@@ -50,7 +50,7 @@ $app->get(
         // Parametros da requisição
         $content = json_encode(array(
             'token' => 'uev1',
-            'votacao' => array('1' => array('1' => 123, '2' => 52, 'branco' => 20, 'nulo' => 20), 
+            'votacao' => array('1' => array('1' => 123, '2' => 500, 'branco' => 20, 'nulo' => 20), 
                                '2' => array('11' => 85, '22' => 37, 'branco' => 2, 'nulo' => 33)
                         ),
             'eleitores' => array('1' => 'João', '3' => 'Maria')
@@ -84,6 +84,14 @@ $app->get(
 
 $app->get(
     '/listaEleitores', '\app\controllers\Eleitor:listaEleitores'
+);
+
+$app->get(
+    '/apuracao', '\app\controllers\Relatorio:selecionaCargo'
+);
+
+$app->get(
+    '/relatorioVotacao/:idCargo', '\app\controllers\Relatorio:votacao'
 );
 
 $app->post(
