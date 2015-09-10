@@ -29,7 +29,7 @@
           foreach ($cargos as $cargo) { ?>
 
               <input type="button" class="btn btn-danger btn-lg btn-block" value="<?php echo $cargo['nome']; ?>" 
-                onclick="window.location='/relatorioVotacao/<?php echo $cargo['id']; ?>'">
+                onclick="window.location='/relatorioVotacao/<?php echo $cargo['id']; ?>/<?php echo $cargo['nome']; ?>'">
 
           <?php }
   

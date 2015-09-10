@@ -29,4 +29,32 @@ class UevModel {
 		}
 	}
 
+	public function getQtdUevCadastrada() {
+		try {
+			$sql = 'SELECT COUNT(*) AS QTD FROM uev';
+			$query = $this->db->prepare($sql);
+			$query->execute();
+			$resultado = $query->fetchAll(\PDO::FETCH_ASSOC);
+
+			return $resultado[0]['QTD'];
+
+		} catch(PDOException $e) {
+			echo 'Erro: ' . $e->getMessage();
+		}
+	}
+
+	public function getQtdUevEnviouVotos() {
+		try {
+			$sql = 'SELECT COUNT(*) AS QTD FROM uev WHERE enviou_votacao = 1';
+			$query = $this->db->prepare($sql);
+			$query->execute();
+			$resultado = $query->fetchAll(\PDO::FETCH_ASSOC);
+
+			return $resultado[0]['QTD'];
+
+		} catch(PDOException $e) {
+			echo 'Erro: ' . $e->getMessage();
+		}
+	}
+
 }

@@ -20,7 +20,11 @@
   <body>
 
    <div class="container">
-      <h1>Apuração de votos para ...</h1>
+      <p class="text-left">
+        <h1>Apuração de votos para <?php echo $nomeCargo; ?>
+          <small><?php echo $porcentagemVotos; ?>% dos votos apurados</small>
+        </h1>
+      </p>
       <p class="text-right"><input type="button" class="btn btn-default" value="Voltar" onclick="window.location='/apuracao'"></p>
 
       <?php

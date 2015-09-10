@@ -91,7 +91,7 @@ $app->get(
 );
 
 $app->get(
-    '/relatorioVotacao/:idCargo', '\app\controllers\Relatorio:votacao'
+    '/relatorioVotacao/:idCargo/:nomeCargo', '\app\controllers\Relatorio:votacao'
 );
 
 $app->post(
