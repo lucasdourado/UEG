@@ -12,11 +12,11 @@ class UevModel {
 		$this->db = Conexao::conectar();
 	}
 
-	public function verificaAcesso($token, $retornaID = false) {
+	public function verificaAcesso($senha, $retornaID = false) {
 		try {
-			$sql = 'SELECT id FROM uev WHERE token_acesso = :token';
+			$sql = 'SELECT id FROM uev WHERE senha = :senha';
 			$query = $this->db->prepare($sql);
-			$query->bindParam("token", $token, \PDO::PARAM_STR);
+			$query->bindParam("senha", $senha, \PDO::PARAM_STR);
 			$query->execute();
 			$resultado = $query->fetchAll(\PDO::FETCH_ASSOC);
 

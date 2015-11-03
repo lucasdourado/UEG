@@ -11,74 +11,60 @@ class Uev {
 
 	private $uevModel;
 	private $uevHelper;
-	private $admModel;
+	private $administrador;
 
 	public function __construct() {
 		$this->uevModel = new UevModel();
 		$this->uevHelper = new UevHelper();
-		$this->admModel = new Administrador();
+		$this->administrador = new Administrador();
 	}
 
 	public function solicitaDados() {
 		$request = Slim::getInstance()->request();
 		$dadosUEV = json_decode($request->getBody());
-		$msgErro = '';
 		$dados = array();
 
-		// Verifica se foi enviado os dados necessários (token)
-		if(!isset($dadosUEV) || !isset($dadosUEV->token))
-			$msgErro = $this->uevHelper->getMsgsErro('formato_json_dados');
-
-		// Verifica se o token enviado não está vazio
-		if(($msgErro == '') && ($dadosUEV->token == ''))
-			$msgErro = $this->uevHelper->getMsgsErro('enviar_token');
+		// Verifica se foi enviado os dados necessários (senha)
+		if(!isset($dadosUEV) || !isset($dadosUEV->senha) || ($dadosUEV->senha == ''))
+			return false;
 
 		// Verifica se UEV possui acesso aos dados
-		if($msgErro == '' && !$this->uevModel->verificaAcesso($dadosUEV->token))
-			$msgErro = $this->uevHelper->getMsgsErro("sem_acesso");
+		if(!$this->uevModel->verificaAcesso($dadosUEV->senha))
+			return false;
 
 		// Se estiver tudo OK, retorna os dados para a UEV
-		if($msgErro == ''){
-			$idUev = $this->uevModel->verificaAcesso($dadosUEV->token, true);
-			$dados = $this->admModel->getDadosCarga($idUev);
-		}
+		$idUev = $this->uevModel->verificaAcesso($dadosUEV->senha, true);
+		$dados = $this->administrador->getDadosCarga($idUev);
 
-		$dados['erro'] = $msgErro;
-
-		echo json_encode($dados);
+		echo utf8_decode(json_encode($dados, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
 	}
 
 	public function enviaVotacao() {
 		$request = Slim::getInstance()->request();
 		$dadosUEV = json_decode($request->getBody());
-		$msgErro = '';
 		$dados = array();
 
-		// Verifica se foi enviado os dados necessários (token, votos e eleitores)
-		if(!isset($dadosUEV) || !isset($dadosUEV->token) || !isset($dadosUEV->votacao) || !isset($dadosUEV->eleitores))
-			$msgErro = $this->uevHelper->getMsgsErro('formato_json_votos');
+		// Verifica se foi enviado os dados necessários (senha, votos e eleitores)
+		if(!isset($dadosUEV) || !isset($dadosUEV->senha) || !isset($dadosUEV->votacao) || !isset($dadosUEV->ausentes))
+			return false;
 
-		// Verifica se o token enviado não está vazio
-		if(($msgErro == '') && ($dadosUEV->token == ''))
-			$msgErro = $this->uevHelper->getMsgsErro('enviar_token');
+		// Verifica se o senha enviado não está vazio
+		if(($dadosUEV->senha == ''))
+			return false;
 
 		// Verifica se UEV possui acesso aos dados
-		if($msgErro == '' && !$this->uevModel->verificaAcesso($dadosUEV->token))
-			$msgErro = $this->uevHelper->getMsgsErro("sem_acesso");
+		if(!$this->uevModel->verificaAcesso($dadosUEV->senha))
+			return false;
 
-		// Se estiver tudo OK, cadastra os votos e os eleitores que votaram
-		if($msgErro == '') {
-			$idUev = $this->uevModel->verificaAcesso($dadosUEV->token, true);
-			$dadosUEV->idUev = $idUev;
-			$registra = $this->admModel->registraVotosUev($dadosUEV);
-			$dados['votacao'] = (!$registra) ? 
-								'Erro ao cadastrar os votos'
-								: 'Votos cadastrados com sucesso.';
-		}
+		// Se estiver tudo OK, cadastra os votos e os eleitores que nao votaram
+		$idUev = $this->uevModel->verificaAcesso($dadosUEV->senha, true);
+		$dadosUEV->idUev = $idUev;
+		$registra = $this->administrador->registraVotosUev($dadosUEV);
 
-		$dados['erro'] = $msgErro;
-
-		echo json_encode($dados);
+		if($registra)
+			echo 'OK';
+		else
+			return false;
 	}
 
 }

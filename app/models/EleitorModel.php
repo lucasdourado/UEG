@@ -28,7 +28,7 @@ class EleitorModel {
 
 	public function getEleitores($idUev) {
 		try {
-			$sql = 'SELECT * FROM eleitor WHERE id_uev = :uev';
+			$sql = 'SELECT numero_doc, nome FROM eleitor WHERE id_uev = :uev';
 			$query = $this->db->prepare($sql);
 			$query->bindParam("uev", $idUev, \PDO::PARAM_INT);
 			$query->execute();

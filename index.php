@@ -22,7 +22,7 @@ $app->get(
 
         // Parametros da requisição
         $content = json_encode(array(
-            'token' => 'uev1'
+            'senha' => 'uev1'
         ));
         
         $context = stream_context_create(array(
@@ -49,11 +49,11 @@ $app->get(
 
         // Parametros da requisição
         $content = json_encode(array(
-            'token' => 'uev1',
+            'senha' => 'uev1',
             'votacao' => array('1' => array('1' => 123, '2' => 500, 'branco' => 20, 'nulo' => 20), 
                                '2' => array('11' => 85, '22' => 37, 'branco' => 2, 'nulo' => 33)
                         ),
-            'eleitores' => array('1' => 'João', '3' => 'Maria')
+            'ausentes' => array('11111111', '12121212')
         ));
         
         $context = stream_context_create(array(

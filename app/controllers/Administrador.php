@@ -7,8 +7,8 @@ use app\models\EleitorModel;
 
 class Administrador {
 
-	// Tempo de votação (em minutos)
-	private $tempoExpiracao = 10;
+	// Tempo de votação (em segundos)
+	private $tempoExpiracao = 600;
 	private $candidatoModel;
 	private $eleitorModel;
 
@@ -25,7 +25,7 @@ class Administrador {
 	public function getDadosCarga($idUev) {
 		$dados = array();
 		
-		$dados['cargo'] = $this->candidatoModel->getCargos();
+		$dados['cargos'] = $this->candidatoModel->getCargos();
 		$dados['candidatos'] = $this->candidatoModel->getCandidatos();
 		$dados['eleitores'] = $this->eleitorModel->getEleitores($idUev);
 		$dados['tempo_expiracao'] = $this->getTempoExpiracao();

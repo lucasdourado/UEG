@@ -16,8 +16,8 @@ class AdministradorModel {
 
 		if(!is_object($dados) || empty($dados) || !isset($dados->idUev) 
 			|| ($dados->idUev == '') || !is_object($dados->votacao) 
-			|| empty($dados->votacao) || !is_object($dados->eleitores) 
-			|| empty($dados->eleitores))
+			|| empty($dados->votacao) || !is_array($dados->ausentes) 
+			|| empty($dados->ausentes))
 			return false;
 
 		$flagAtiva = 1; $flagInativa = 0; $flagNull = null;
@@ -64,9 +64,9 @@ class AdministradorModel {
 			}
 		}
 
-		// Marca eleitores que votaram
-		foreach ($dados->eleitores as $numDoc => $nome) {
-			$sql = 'UPDATE eleitor SET votou = 1 WHERE numero_doc = :numero_doc AND id_uev = :id_uev';
+		// Marca eleitores ausentes
+		foreach ($dados->ausentes as $eleitor => $numDoc) {
+			$sql = 'UPDATE eleitor SET ausente = 1 WHERE numero_doc = :numero_doc AND id_uev = :id_uev';
 
 			$query = $this->db->prepare($sql);
 
