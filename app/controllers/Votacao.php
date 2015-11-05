@@ -1,11 +1,11 @@
 <?php
 namespace app\controllers;
 
-use app\models\AdministradorModel;
+use app\models\VotacaoModel;
 use app\models\CandidatoModel;
 use app\models\EleitorModel;
 
-class Administrador {
+class Votacao {
 
 	// Tempo de votação (em segundos)
 	private $tempoExpiracao = 600;
@@ -15,7 +15,7 @@ class Administrador {
 	public function __construct() {
 		$this->candidatoModel = new CandidatoModel();
 		$this->eleitorModel = new EleitorModel();
-		$this->admModel = new AdministradorModel();
+		$this->votacaoModel = new VotacaoModel();
 	}
 
 	public function getTempoExpiracao() {
@@ -34,7 +34,7 @@ class Administrador {
 	}
 
 	public function registraVotosUev($dados) {
-		$registra = $this->admModel->registraVotosUev($dados);
+		$registra = $this->votacaoModel->registraVotosUev($dados);
 		return $registra;
 	}
 

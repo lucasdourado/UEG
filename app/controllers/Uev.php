@@ -4,19 +4,19 @@ namespace app\controllers;
 
 use app\models\UevModel;
 use Slim\Slim as Slim;
-use app\controllers\Administrador;
+use app\controllers\Votacao;
 use app\helpers\Uev as UevHelper;
 
 class Uev {
 
 	private $uevModel;
 	private $uevHelper;
-	private $administrador;
+	private $votacao;
 
 	public function __construct() {
 		$this->uevModel = new UevModel();
 		$this->uevHelper = new UevHelper();
-		$this->administrador = new Administrador();
+		$this->votacao = new Votacao();
 	}
 
 	public function solicitaDados() {
@@ -34,7 +34,7 @@ class Uev {
 
 		// Se estiver tudo OK, retorna os dados para a UEV
 		$idUev = $this->uevModel->verificaAcesso($dadosUEV->senha, true);
-		$dados = $this->administrador->getDadosCarga($idUev);
+		$dados = $this->votacao->getDadosCarga($idUev);
 
 		echo utf8_decode(json_encode($dados, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
 	}
@@ -59,7 +59,7 @@ class Uev {
 		// Se estiver tudo OK, cadastra os votos e os eleitores que nao votaram
 		$idUev = $this->uevModel->verificaAcesso($dadosUEV->senha, true);
 		$dadosUEV->idUev = $idUev;
-		$registra = $this->administrador->registraVotosUev($dadosUEV);
+		$registra = $this->votacao->registraVotosUev($dadosUEV);
 
 		if($registra)
 			echo 'OK';

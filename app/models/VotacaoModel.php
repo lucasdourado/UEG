@@ -4,7 +4,7 @@ namespace app\models;
 
 use app\Conexao;
 
-class AdministradorModel {
+class VotacaoModel {
 	
 	private $db;
 
