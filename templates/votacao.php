@@ -47,7 +47,7 @@
                 <?php } ?>
               </td>
               <td align="center">
-                <?php echo (isset($voto['numero_candidato'])) ? $voto['numero_candidato'] : ''; ?>
+                <?php echo (isset($voto['numero'])) ? $voto['numero'] : ''; ?>
               </td>
               <td>
                 <?php echo (isset($voto['nome'])) ? $voto['nome'] : ''; ?>

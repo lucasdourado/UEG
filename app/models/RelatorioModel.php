@@ -17,13 +17,13 @@ class RelatorioModel {
 			$sql = 'SELECT c.nome
 						 , c.foto
 						 , c.apelido
-						 , v.numero_candidato
-						 , SUM(v.qtd_votos) as qtd_votos
-					  FROM votacao v
-				 INNER JOIN ueg.candidato c ON c.numero = v.numero_candidato
-				  	 WHERE v.id_cargo = :id_cargo
-				  GROUP BY v.numero_candidato
-				  ORDER BY SUM(v.qtd_votos) DESC';
+						 , c.numero
+						 , IFNULL(SUM(v.qtd_votos),0) as qtd_votos
+					  FROM candidato c
+				 LEFT JOIN votacao v ON v.numero_candidato = c.numero
+					 WHERE c.id_cargo = :id_cargo
+				  GROUP BY c.numero
+				  ORDER BY qtd_votos DESC;';
 
 			$query = $this->db->prepare($sql);
 			$query->bindParam("id_cargo", $idCargo, \PDO::PARAM_INT);
@@ -39,6 +39,11 @@ class RelatorioModel {
 
 	public function votosBrancosNulosPorCargo($idCargo) {
 		try {
+			$arrayRetorno = array(
+				array('nome' => 'NULOS', 'qtd_votos' => 0),
+				array('nome' => 'BRANCOS', 'qtd_votos' => 0),
+			);
+
 			$sql = 'SELECT CASE WHEN (voto_branco = 1) THEN \'BRANCOS\'
 								WHEN (voto_nulo = 1) THEN \'NULOS\'
 							END AS nome
@@ -54,7 +59,7 @@ class RelatorioModel {
 			$query->execute();
 			$resultado = $query->fetchAll(\PDO::FETCH_ASSOC);
 
-			return $resultado;
+			return (!empty($resultado)) ? $resultado : $arrayRetorno;
 			
 		} catch(PDOException $e) {
 			echo 'Erro: ' . $e->getMessage();

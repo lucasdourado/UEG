@@ -51,7 +51,7 @@ $app->get(
         $content = json_encode(array(
             'senha' => 'uev1',
             'votacao' => array('1' => array('1' => 123, '2' => 500, 'branco' => 20, 'nulo' => 20), 
-                               '2' => array('11' => 85, '22' => 37, 'branco' => 2, 'nulo' => 33)
+                               '2' => array('11' => 85, '12' => 37, 'branco' => 2, 'nulo' => 33)
                         ),
             'ausentes' => array('11111111', '12121212')
         ));
