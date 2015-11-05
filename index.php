@@ -73,11 +73,6 @@ $app->get(
     }
 );
 
-// Recebe requisição de cadastro da UEV
-$app->post(
-    '/cadastraUEV', '\app\controllers\Uev:SolicitaCadastroUEV'
-);
-
 $app->get(
     '/listaCandidatos', '\app\controllers\Candidato:listaCandidatos'
 );
