@@ -35,12 +35,22 @@
                   onclick="window.location='/relatorioVotacao/<?php echo $cargo['id']; ?>/<?php echo $cargo['nome']; ?>'">
 
           <?php }
-      
+
             } else {  ?>
 
               <p class="text-center">Não há cargos para apuração.</p>
 
           <?php  } ?>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <?php if(isset($qtdAusentes) && $qtdAusentes > 0) { ?>
+            <h5>Quantidade de eleitores ausentes: <?php echo $qtdAusentes ?></h5>
+          <?php } ?>
         </div>
         <div class="col-md-2"></div>
       </div>
