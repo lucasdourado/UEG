@@ -5,17 +5,14 @@ namespace app\controllers;
 use app\models\UevModel;
 use Slim\Slim as Slim;
 use app\controllers\Votacao;
-use app\helpers\Uev as UevHelper;
 
 class Uev {
 
 	private $uevModel;
-	private $uevHelper;
 	private $votacao;
 
 	public function __construct() {
 		$this->uevModel = new UevModel();
-		$this->uevHelper = new UevHelper();
 		$this->votacao = new Votacao();
 	}
 
