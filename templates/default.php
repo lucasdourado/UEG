@@ -20,10 +20,16 @@
   <body>
 
     <div class="container">
-      <h1>UEg <small>Gerenciamento</small></h1>
-      <input type="button" class="btn btn-primary btn-lg btn-block" value="Lista de Candidatos" onclick="window.location='/listaCandidatos'">
-      <input type="button" class="btn btn-primary btn-lg btn-block" value="Lista de Eleitores" onclick="window.location='/listaEleitores'">
-      <input type="button" class="btn btn-primary btn-lg btn-block" value="Apuração dos Votos" onclick="window.location='/apuracao'">
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <h1>UEg <small>Gerenciamento</small></h1>
+          <input type="button" class="btn btn-primary btn-lg btn-block" value="Lista de Candidatos" onclick="window.location='/listaCandidatos'">
+          <input type="button" class="btn btn-primary btn-lg btn-block" value="Lista de Eleitores" onclick="window.location='/listaEleitores'">
+          <input type="button" class="btn btn-primary btn-lg btn-block" value="Apuração dos Votos" onclick="window.location='/apuracao'">
+        </div>
+        <div class="col-md-2"></div>
+      </div>
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

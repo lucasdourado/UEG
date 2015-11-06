@@ -20,24 +20,30 @@
   <body>
 
     <div class="container">
-      <h1>Selecione o Cargo</h1>
-      <p class="text-right"><input type="button" class="btn btn-default" value="Voltar" onclick="window.location='/'"></p>
-      
-      <?php
-        if(isset($cargos) && !empty($cargos)) { 
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <h1>Selecione o Cargo</h1>
+          <p class="text-right"><input type="button" class="btn btn-default" value="Início" onclick="window.location='/'"></p>
+          
+          <?php
+            if(isset($cargos) && !empty($cargos)) { 
 
-          foreach ($cargos as $cargo) { ?>
+              foreach ($cargos as $cargo) { ?>
 
-              <input type="button" class="btn btn-danger btn-lg btn-block" value="<?php echo $cargo['nome']; ?>" 
-                onclick="window.location='/relatorioVotacao/<?php echo $cargo['id']; ?>/<?php echo $cargo['nome']; ?>'">
+                <input type="button" class="btn btn-danger btn-lg btn-block" value="<?php echo $cargo['nome']; ?>" 
+                  onclick="window.location='/relatorioVotacao/<?php echo $cargo['id']; ?>/<?php echo $cargo['nome']; ?>'">
 
           <?php }
-  
-        } else {  ?>
+      
+            } else {  ?>
 
-          <p class="text-center">Não há cargos para apuração.</p>
+              <p class="text-center">Não há cargos para apuração.</p>
 
-      <?php  } ?>
+          <?php  } ?>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
     </div>
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
