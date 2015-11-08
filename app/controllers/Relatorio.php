@@ -12,12 +12,14 @@ class Relatorio {
 
 	private $relatorioModel;
 	private $candidatoModel;
+	private $relatorioHelper;
+	private $eleitorModel;
 
 	public function __construct() {
-		$this->relatorioModel = new RelatorioModel();
-		$this->candidatoModel = new CandidatoModel();
+		$this->relatorioModel = RelatorioModel::getInstance();
+		$this->candidatoModel = CandidatoModel::getInstance();
 		$this->relatorioHelper = new RelatorioHelper();
-		$this->eleitorModel = new EleitorModel();
+		$this->eleitorModel = EleitorModel::getInstance();
 	}
 
 	public function selecionaCargo() {

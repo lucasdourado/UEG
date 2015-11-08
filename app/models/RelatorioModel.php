@@ -3,14 +3,9 @@
 namespace app\models;
 
 use app\Conexao;
+use app\models\BaseModel;
 
-class RelatorioModel {
-	
-	private $db;
-
-	public function __construct() {
-		$this->db = Conexao::conectar();
-	}
+class RelatorioModel extends BaseModel {
 
 	public function votosCandidatosPorCargo($idCargo) {
 		try {

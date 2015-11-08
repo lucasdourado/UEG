@@ -10,7 +10,7 @@ class Candidato {
 	private $candidatoModel;
 
 	public function __construct() {
-		$this->candidatoModel = new CandidatoModel();
+		$this->candidatoModel = CandidatoModel::getInstance();
 	}
 
 	public function listaCandidatos() {

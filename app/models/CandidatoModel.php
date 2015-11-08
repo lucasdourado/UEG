@@ -3,14 +3,9 @@
 namespace app\models;
 
 use app\Conexao;
+use app\models\BaseModel;
 
-class CandidatoModel {
-	
-	private $db;
-
-	public function __construct() {
-		$this->db = Conexao::conectar();
-	}
+class CandidatoModel extends BaseModel {
 
 	public function listaCandidatos() {
 		try {

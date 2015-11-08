@@ -12,7 +12,7 @@ class Uev {
 	private $votacao;
 
 	public function __construct() {
-		$this->uevModel = new UevModel();
+		$this->uevModel = UevModel::getInstance();
 		$this->votacao = new Votacao();
 	}
 

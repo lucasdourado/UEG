@@ -11,11 +11,12 @@ class Votacao {
 	private $tempoExpiracao = 600;
 	private $candidatoModel;
 	private $eleitorModel;
+	private $votacaoModel;
 
 	public function __construct() {
-		$this->candidatoModel = new CandidatoModel();
-		$this->eleitorModel = new EleitorModel();
-		$this->votacaoModel = new VotacaoModel();
+		$this->candidatoModel = CandidatoModel::getInstance();
+		$this->eleitorModel = EleitorModel::getInstance();
+		$this->votacaoModel = VotacaoModel::getInstance();
 	}
 
 	public function getTempoExpiracao() {

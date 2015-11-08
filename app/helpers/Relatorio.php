@@ -9,7 +9,7 @@ class Relatorio {
 	private $uevModel;
 
 	public function __construct() {
-		$this->uevModel = new UevModel();
+		$this->uevModel = UevModel::getInstance();
 	}
 
 	public function getPorcentagemVotosApurados() {

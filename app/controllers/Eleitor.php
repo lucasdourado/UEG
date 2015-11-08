@@ -10,7 +10,7 @@ class Eleitor {
 	private $eleitorModel;
 
 	public function __construct() {
-		$this->eleitorModel = new EleitorModel();
+		$this->eleitorModel = EleitorModel::getInstance();
 	}
 
 	public function listaEleitores() {

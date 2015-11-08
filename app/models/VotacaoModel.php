@@ -3,14 +3,9 @@
 namespace app\models;
 
 use app\Conexao;
+use app\models\BaseModel;
 
-class VotacaoModel {
-	
-	private $db;
-
-	public function __construct() {
-		$this->db = Conexao::conectar();
-	}
+class VotacaoModel extends BaseModel {
 
 	public function registraVotosUev($dados) {
 
