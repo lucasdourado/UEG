@@ -33,7 +33,7 @@ class Uev {
 		$idUev = $this->uevModel->verificaAcesso($dadosUEV->senha, true);
 		$dados = $this->votacao->getDadosCarga($idUev);
 
-		echo utf8_decode(json_encode($dados, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+		echo json_encode($dados, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 	}
 
 	public function enviaVotacao() {
