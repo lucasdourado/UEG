@@ -52,4 +52,20 @@ class UevModel extends BaseModel {
 		}
 	}
 
+	public function verificaUevEnviouVotacao($senha) {
+		try {
+			$sql = 'SELECT * FROM uev WHERE senha = :senha AND enviou_votacao = 1';
+			$query = $this->db->prepare($sql);
+			$query->bindParam("senha", $senha, \PDO::PARAM_STR);
+			$query->execute();
+			$resultado = $query->fetchAll(\PDO::FETCH_ASSOC);
+
+			return (empty($resultado)) ? false : true;
+			
+
+		} catch(PDOException $e) {
+			echo 'Erro: ' . $e->getMessage();
+		}
+	}
+
 }

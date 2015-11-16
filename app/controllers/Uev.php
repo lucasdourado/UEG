@@ -22,12 +22,16 @@ class Uev {
 		$dados = array();
 
 		// Verifica se foi enviado os dados necessários (senha)
-		if(!isset($dadosUEV) || !isset($dadosUEV->senha) || ($dadosUEV->senha == ''))
-			return false;
-
+		if(!isset($dadosUEV) || !isset($dadosUEV->senha) || ($dadosUEV->senha == '')) {
+			http_response_code(403);
+			exit();
+		}
+			
 		// Verifica se UEV possui acesso aos dados
-		if(!$this->uevModel->verificaAcesso($dadosUEV->senha))
-			return false;
+		if(!$this->uevModel->verificaAcesso($dadosUEV->senha)) {
+			http_response_code(403);
+			exit();
+		}
 
 		// Se estiver tudo OK, retorna os dados para a UEV
 		$idUev = $this->uevModel->verificaAcesso($dadosUEV->senha, true);
@@ -42,16 +46,28 @@ class Uev {
 		$dados = array();
 
 		// Verifica se foi enviado os dados necessários (senha, votos e eleitores)
-		if(!isset($dadosUEV) || !isset($dadosUEV->senha) || !isset($dadosUEV->votacao) || !isset($dadosUEV->ausentes))
-			return false;
-
+		if(!isset($dadosUEV) || !isset($dadosUEV->senha) || !isset($dadosUEV->votacao) || !isset($dadosUEV->ausentes)) {
+			http_response_code(403);
+			exit();
+		}
+		
 		// Verifica se o senha enviado não está vazio
-		if(($dadosUEV->senha == ''))
-			return false;
+		if(($dadosUEV->senha == '')) {
+			http_response_code(403);
+			exit();
+		}
 
 		// Verifica se UEV possui acesso aos dados
-		if(!$this->uevModel->verificaAcesso($dadosUEV->senha))
-			return false;
+		if(!$this->uevModel->verificaAcesso($dadosUEV->senha)) {
+			http_response_code(403);
+			exit();
+		}
+
+		// Verifica se UEV já enviou a votação
+		if($this->uevModel->verificaUevEnviouVotacao($dadosUEV->senha)) {
+			http_response_code(403);
+			exit();
+		}
 
 		// Se estiver tudo OK, cadastra os votos e os eleitores que nao votaram
 		$idUev = $this->uevModel->verificaAcesso($dadosUEV->senha, true);
